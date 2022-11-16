@@ -1,0 +1,27 @@
+[
+  {
+    "Name": "Billy",
+    "Color": "Brown",
+    "DateOfBirth": "2020-08-01",
+    "DateInShelter": "2022-01-01",
+    "AgeInYears": 6,
+    "AgeInMonths": 4,
+    "AgeInWeeks": 1
+  },
+  {
+    "Name": "Teddy",
+    "Color": "White",
+    "DateInShelter": "2022-06-01"
+  },
+  {
+    "Name": "Gates",
+    "Color": "Green",
+    "DateInShelter": "2022-04-01",
+    "AgeInMonths": 6
+  },
+  {
+    "Name": "Simona",
+    "Color": "Yellow and Blue",
+    "DateInShelter": "2022-03-03"
+  }
+]
