@@ -13,5 +13,7 @@ public class Animal : BaseEntity<Guid>
     public int? AgeMonths { get; set; }
     public int? AgeWeeks { get; set; }
 
-    public string AgeText => string.Empty;
+    public string? Specie { get; set; }
+
+    public string AgeText => $"{AgeYears} years {AgeWeeks} weeks";
 }

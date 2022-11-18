@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using ShelterBuddy.CodePuzzle.Api.Models;
 using ShelterBuddy.CodePuzzle.Core.DataAccess;
 using ShelterBuddy.CodePuzzle.Core.Entities;
+using System.Linq;
 
 namespace ShelterBuddy.CodePuzzle.Api.Controllers;
 
@@ -30,12 +31,29 @@ public class AnimalController : ControllerBase
         AgeText = animal.AgeText,
         AgeMonths = animal.AgeMonths,
         AgeWeeks = animal.AgeWeeks,
-        AgeYears = animal.AgeYears
+        AgeYears = animal.AgeYears,
+        Specie = animal.Specie
     }).ToArray();
 
     [HttpPost]
     public void Post(AnimalModel newAnimal)
     {
-        throw new NotImplementedException();
+        Animal animal = new Animal
+        {
+            Id = Guid.NewGuid(),
+            Name = newAnimal.Name,
+            Colour = newAnimal.Colour,
+            DateFound = newAnimal.DateFound,
+            DateLost = newAnimal.DateLost,
+            MicrochipNumber = newAnimal.MicrochipNumber,
+            DateInShelter = newAnimal.DateInShelter,
+            DateOfBirth = newAnimal.DateOfBirth,
+            AgeMonths = newAnimal.AgeMonths,
+            AgeWeeks = newAnimal.AgeWeeks,
+            AgeYears = newAnimal.AgeYears,
+            Specie = newAnimal.Specie
+        };
+
+        repository.Add(animal);
     }
 }

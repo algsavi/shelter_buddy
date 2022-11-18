@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using System.Text.Json.Nodes;
 using Newtonsoft.Json;
 using ShelterBuddy.CodePuzzle.Core.Entities;
 
@@ -11,15 +10,20 @@ public class BaseRepository<T, TKey> : IRepository<T, TKey>
 {
     private ICollection<T> data = new List<T>();
     private IAuditStamper auditStamper = new AuditStamper();
-    
+
+    private string _resourceName;
+
     protected BaseRepository()
     {
     }
 
     protected void Load(string resourceName)
     {
+        _resourceName = resourceName;
+
         var assembly = Assembly.GetExecutingAssembly();
-        using (var stream = assembly.GetManifestResourceStream(resourceName))
+
+        using (var stream = assembly.GetManifestResourceStream(_resourceName))
         using (var streamReader = new StreamReader(stream))
         {
             var animalsData = streamReader.ReadToEnd();
@@ -46,13 +50,15 @@ public class BaseRepository<T, TKey> : IRepository<T, TKey>
     public void Add(T entity)
     {
         entity.Created(auditStamper);
-        
+
         data.Add(entity);
+
+        var animals = JsonConvert.SerializeObject(data, Formatting.Indented);
+        
+        using (var streamWriter = new StreamWriter(@"C:\code\ShelterBuddy\ShelterBuddy.CodePuzzle.Core\DataAccess\Data\Animals.json"))
+        {
+            streamWriter.WriteLine(animals);
+        }
     }
 
-    private class AuditStamper : IAuditStamper
-    {
-        public DateTimeOffset Now => DateTimeOffset.Now;
-        public string Name => "Test";
-    }
 }
