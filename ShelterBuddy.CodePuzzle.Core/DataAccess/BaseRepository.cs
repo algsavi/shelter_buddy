@@ -30,9 +30,13 @@ public class BaseRepository<T, TKey> : IRepository<T, TKey>
             var animals = JsonConvert.DeserializeObject<T[]>(animalsData);
 
             data.Clear();
-            foreach (var item in animals)
+
+            if (!(animals is null))
             {
-                data.Add(item);
+                foreach (var item in animals)
+                {
+                    data.Add(item);
+                }
             }
         }
     }
@@ -54,8 +58,8 @@ public class BaseRepository<T, TKey> : IRepository<T, TKey>
         data.Add(entity);
 
         var animals = JsonConvert.SerializeObject(data, Formatting.Indented);
-        
-        using (var streamWriter = new StreamWriter(@"C:\code\ShelterBuddy\ShelterBuddy.CodePuzzle.Core\DataAccess\Data\Animals.json"))
+
+        using (var streamWriter = new StreamWriter(@"..\ShelterBuddy.CodePuzzle.Core\DataAccess\Data\Animals.json"))
         {
             streamWriter.WriteLine(animals);
         }
